@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Service</title>
+</head>
+<body>
+    
+    <form onsubmit="return validate()" name="myform" method="post" style="display: flex;flex-direction: column;width: 300px;margin: 100px auto;">
+        
+        <input type="text" name="customer_name" maxlength="8" placeholder="Name">
+        <div>
+            suv: <input type="checkbox" name="car_type">
+            hatchback: <input type="checkbox" name="car_type">
+            sedan <input type="checkbox" name="car_type">
+        </div>
+        <select name="car_model" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+        
+        <input type="text" name="car_num" placeholder="KA 03 XX (albhabets) YYYY(number)">
+        <div>
+            free <input type="radio" name="service_type" value="free">
+            paid <input type="radio" name="service_type" value="paid">
+        </div>
+        <input type="number" name="km" placeholder="km driven">
+        <input type="date" name="date" placeholder="date">
+
+        <input type="submit" value="submit">
+
+    </form>
+    
+<script>
+    function validate(params) {
+        const c_name = document.forms.myform.customer_name.value
+        const car_type = document.forms.myform.car_type.value
+        const car_model = document.forms.myform.car_model.value
+        const car_number = document.forms.myform.car_num.value
+        const car_km = document.forms.myform.km.value
+        const car_ser = document.forms.myform.service_type.value
+        const ser_date = document.forms.myform.date.value
+
+        
+
+
+        if (c_name==""||car_type==""||car_model==""||car_number==""|car_km==""||car_ser==""||ser_date=="") {
+            alert("all fields must be filled")
+            return false
+        }
+
+        if(c_name.length<=8){
+            for(var i=0;i<c_name.length;i++)
+            {
+                if(!isNaN(c_name[i])){
+                    alert("Name cannot contain numbers")
+                    return false
+                }
+            }
+        }else{
+            alert("name cannot be more then 8 letters")
+            return false
+        }
+
+        car_n = car_number.split(" ")
+        if (car_n.length==3) {
+            if (!isNaN(car_n[2]) && car_n[2].length==4) {
+                if (car_n[0]!="KA03") {
+                    alert("input format not correct")
+                    return false    
+                }
+            } else {
+                alert("input format not correct")
+                return false   
+            }
+        } else {
+            alert("input format not correct")
+            return false
+        }
+
+
+
+        if (car_km>1000 && car_ser=="free") {
+            alert("free service not available for more then 1000km")
+            return false
+        }
+
+        if (car_km<1000 && car_ser=="paid") {
+            alert("minimum 1000km required for paid service")
+            return false
+        }
+
+        
+    }
+</script>
+</body>
+</html>
